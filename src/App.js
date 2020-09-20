@@ -1,26 +1,89 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import ToDoApp from './components/todo/ToDoApp'
 import './App.css';
 
-function App() {
+class App extends Component{
+  
+  render()
+
+
+{                
   return (
+    //JSX COde//
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*<h1>My ToDo Application</h1>*/}
+     
+     <ToDoApp/> 
+
+
     </div>
   );
 }
+}
+//class component
 
-export default App;
+
+
+//class component
+
+
+
+
+//how to create function component here by using function for third component //
+ 
+/*
+function FourthComponent(){
+
+  return (
+    <div className="FourthComponent">
+      <h1>FourthComponent</h1>
+    </div>
+  );
+
+}
+function FifthComponent(){
+
+  return (
+    <div className="FifthComponent">
+      <h1>FifthComponent</h1>
+    </div>
+  );
+
+
+}
+*/
+/*
+class learningComponents extends Component{
+
+  render()
+
+
+  {
+    return (
+      //JSX COde//
+      <div className="learningComponents">
+        <learningComponents></learningComponents>
+        
+  
+  
+      </div>
+    );
+  }
+
+}
+/*
+//class component
+class ThirdComponent extends Component{
+  render()
+  
+
+{
+  return (
+    <div className="ThirdComponent">
+      <h1>ThirdComponent</h1>
+    </div>
+  );
+}
+}
+*/
+export default ToDoApp;
