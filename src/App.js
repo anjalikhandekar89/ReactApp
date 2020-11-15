@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ToDoApp from './components/todo/ToDoApp'
 import './App.css';
+import './bootstrap.css';
 
 class App extends Component{
   

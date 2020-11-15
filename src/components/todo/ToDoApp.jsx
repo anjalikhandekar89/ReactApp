@@ -1,8 +1,9 @@
+import { render } from '@testing-library/react'
 import React, { Component } from 'react'
-import './ShowInvalidCredentials'
-import { ShowInvalidCredentials } from './ShowInvalidCredentials'
-import './ShowLoginSuccessMessage'
-import { ShowLoginSuccessMessage } from './ShowLoginSuccessMessage'
+
+import {BrowserRouter as Router, Link, Route, Switch,} from 'react-router-dom' 
+
+
 
 class TodoApp extends Component
 {
@@ -12,8 +13,28 @@ class TodoApp extends Component
         return(
             <div className='ToDoApplication'>
 
-                <LoginComponent/>
-                <WelcomeComponent/>
+
+                <Router>
+               
+                    <>
+                    <HeaderComponent/>
+                    <Switch>
+                            <Route path="/" exact component={LoginComponent}/>
+                            <Route path="/login" component={LoginComponent}/>
+                            <Route path="/welcome/:name" component={WelcomeComponent}/>
+                            <Route path="/todos" component={ListTodosComponent}/>
+                            <Route path="/logout" component={LogoutComponent}/>
+                            <Route  component={ErrorComponent}/>
+                    </Switch>
+                    <FooterComponent/>
+                        
+                   </>      
+
+                    
+                    </Router>
+
+                {/*<LoginComponent/>}
+                //<WelcomeComponent/>*/}
                 
                 </div>
         )
@@ -23,6 +44,155 @@ class TodoApp extends Component
 
 
 }
+
+
+
+class ListTodosComponent extends Component{
+
+    constructor(props)
+    {
+        super(props)
+        this.state = {
+           
+           
+            todo :
+            [ 
+                {id :1 ,description : 'Learn React',done:false,targetDate: new Date()}, 
+                {id :2 ,description : 'expert in React',done:false,targetDate: new Date()} ,
+                {id :3 ,description : 'Functionality React',done:false,targetDate: new Date()}, 
+                {id :4 ,description : 'Learn React',done:false,targetDate: new Date()} ,
+                {id :5 ,description : 'Learn React',done:false,targetDate: new Date()} ,
+            ]
+  
+        
+        
+    }
+}
+
+
+    render()
+    {
+        return(
+
+       <div>
+           <h1>List ToDos</h1>
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>description</th>
+                                <th>Target Date</th>
+                                <th>Is completed?</th>
+                        
+
+                                </tr>
+                            </thead>
+                            
+                               <tbody>
+
+                                    {
+                                    this.state.todo.map(
+
+                                                todo =>
+                                        
+                                                <tr>
+                                                    <td>{todo.id}</td>
+                                                    <td>{todo.description}</td>
+                                                    <td>{todo.done.toString()}</td>
+                                                    <td>{todo.targetDate.toString()}</td>
+                                                </tr>
+                                                )
+                                    }
+        
+                                    </tbody>
+                                    
+                        </table>
+                      
+            </div>
+           
+            )
+        }
+          
+        
+    }   
+    
+    
+
+    class HeaderComponent extends Component{
+
+
+        render()
+        {
+            return(
+    <header>
+<nav className="navbar navbar-expand-md navbar-dark bg-dark">
+<div><a href="http://www.w3school.com">28 min</a></div>
+<ul className="navbar-nav">
+     <li><Link className="nav-link" to="/welcome/28min">Home</Link></li>
+     <li><Link className="nav-link" to="/todos">Todos</Link></li>
+</ul>
+<ul className="navbar-nav navbar-collapse justify-content-end">
+     <li><Link className="nav-link" to="/login">Login</Link></li>
+     <li><Link className="nav-link" to="/logout">Logout</Link></li>
+
+
+
+</ul>
+
+    </nav>
+
+        </header>
+           
+            )
+        }
+        
+    } 
+
+
+
+
+
+class FooterComponent extends Component{
+
+
+        render()
+        {
+            return(
+    
+
+<footer className="footer">
+
+<span className="text-muted">All Right Reserved 2020 </span>
+
+</footer>
+
+            )
+        }
+        
+    } 
+
+
+    class LogoutComponent extends Component{
+
+
+        render()
+        {
+            return(
+    
+           <>
+
+               <h1>You are Logged Out!!!!</h1>
+               <div className="container">
+                   <h1>Thank You for Using Our Application</h1>
+                </div>
+                   
+            </>
+            )
+        }
+        
+    } 
+
 class WelcomeComponent extends Component{
 
 
@@ -30,11 +200,21 @@ class WelcomeComponent extends Component{
     {
         return(
 
-            <div>Welcomme anjali</div>
+       <div>Welcome {this.props.match.params.UserName}.you can manage your to do <Link href="/todos">here</Link>
+   </div>
         )
     }
     
-}    
+} 
+
+
+
+
+
+function ErrorComponent()
+{
+return <div>An Error Occured.I don't know what to do! Contact support at assdd</div>
+}
 
 class LoginComponent extends Component
 {
@@ -95,10 +275,10 @@ loginClicked()
 {
     if(this.state.UserName==='28min' && this.state.password==='dummy'
     ){
-        console.log('successfull')
+        this.props.history.push('/welcome/${this.state.name}')
 
-        this.setState({showSuccessMessage:true})
-        this.setState({hasLoginFailed:false})
+        // this.setState({showSuccessMessage:true})
+        // this.setState({hasLoginFailed:false})
     }
 
     else
@@ -119,23 +299,22 @@ loginClicked()
 
 return(
        <div>  
+           <h1>Login</h1>
+           <div className="container">
+               </div>
 
 {/*<ShowInvalidCredentials hasLoginFailed = {this.state.hasLoginFailed}/>*/}
 
-    {this.state.hasLoginFailed && <div>Invalid Credentials</div>}
+    {this.state.hasLoginFailed && <div className="container">Invalid Credentials</div>}
    {this.state.showSuccessMessage && <div>Login successfull</div>}
 
+{/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}
 
+  <h1 style={{color: "black",padding: '50',width:'100%',fontSize:50,backgroundColor:'pink' }}> UserName:</h1> <input type ="text" name="UserName" value={this.state.UserName} onChange={this.handleChange} id="1"/>
 
- {/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}
+  <h1 style={{color: "black",padding: '10',width:'100%',fontSize:50,backgroundColor:'pink' }}> Password:</h1> <input type="password" name="password" value={this.state.password} onChange={this.handleChange} id="2"/>
 
- 
-             
-              UserName: <input type="text" name="UserName" value={this.state.UserName} onChange={this.handleChange} id="1"/>
-
-              Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} id="2"/>
-
-        <button onClick={this.loginClicked} type="submit">Login</button>
+        <button  onClick={this.loginClicked} type="submit"><h1>Login</h1></button>
           
          </div>
 
