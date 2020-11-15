@@ -127,7 +127,7 @@ class ListTodosComponent extends Component{
             return(
     <header>
 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-<div><a href="http://www.w3school.com">28 min</a></div>
+{/* <div><a href="">28 min</a></div> */}
 <ul className="navbar-nav">
      <li><Link className="nav-link" to="/welcome/28min">Home</Link></li>
      <li><Link className="nav-link" to="/todos">Todos</Link></li>
@@ -284,6 +284,7 @@ loginClicked()
     else
     {
         console.log('Failed')
+        
         this.setState({showSuccessMessage:false})
         this.setState({hasLoginFailed:true})
     }
@@ -310,9 +311,9 @@ return(
 
 {/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}
 
-  <h1 style={{color: "black",padding: '50',width:'100%',fontSize:50,backgroundColor:'pink' }}> UserName:</h1> <input type ="text" name="UserName" value={this.state.UserName} onChange={this.handleChange} id="1"/>
+  <h1 style={{color: "black",padding: '10',width:'50%',fontSize:20,backgroundColor:'pink' }}> UserName:</h1> <input type ="text" name="UserName" value={this.state.UserName} onChange={this.handleChange} id="1"/>
 
-  <h1 style={{color: "black",padding: '10',width:'100%',fontSize:50,backgroundColor:'pink' }}> Password:</h1> <input type="password" name="password" value={this.state.password} onChange={this.handleChange} id="2"/>
+  <h1 style={{color: "black",padding: '10',width:'50%',fontSize:20,backgroundColor:'pink' }}> Password:</h1> <input type="password" name="password" value={this.state.password} onChange={this.handleChange} id="2"/>
 
         <button  onClick={this.loginClicked} type="submit"><h1>Login</h1></button>
           
